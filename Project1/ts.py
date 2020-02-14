@@ -1,2 +1,2 @@
 import sys
-print("hello world this is TS file~")
+print("hello world this is ~")
