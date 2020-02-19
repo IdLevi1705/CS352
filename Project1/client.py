@@ -43,5 +43,4 @@ def client_connection():
     #
 t1 = threading.Thread(name='client_connection', target=client_connection)
 t1.start()
-    #
-    # exit()
+
