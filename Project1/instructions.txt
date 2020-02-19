@@ -15,6 +15,7 @@ be used to communicate with RS and the other with TS.
 
 The RS and TS programs each maintain a DNS_table consisting of three fields:
 
+**array to store the following in TS server and RS server:
 - Hostname
 - IP address
 - Flag (A or NS)
