@@ -31,8 +31,6 @@ def RSserver():
             DNS_Table[temp_split[0]] = line_num
     raw_file.close()
 
-    # how to stop the streaming and receive one word at the time.....
-
     while True:
         data_from_client = csockid.recv(3074).decode('utf-8')
         if data_from_client.strip() in DNS_Table:
