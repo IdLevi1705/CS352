@@ -4,3 +4,28 @@ Project is DONE!
 2. results will be written to RESOLVED.txt
 3. we still need to work on the README file.
 
+Name: Luis Figueroa-Gil     NetId: lef72
+
+1. Briefly discuss how you implemented your recursive client functionality.
+The client creates two sockets, one for TS server and the other one for RS server by using TCP connection. After doing the
+three way handshake process, the client side sends a request, which is each line of the PROJI-HNS.txt file, first to the RS
+server. Upon request, both RS and TS servers store some Hostnames, IP addresses, and DNS types records on its own hash table
+to make faster the looking up process.
+Basically, if the information required is on the RS server (It compares the client’s information to its own hast table), then
+a unique hostname, IP address, and DNS record are returned to the client. If the information required is not in the RS server
+side, then the client proceeds to send the query to TS server. If the information is in the TS server, then returns the
+appropriate information. If not, then returns HOST NOT FOUND to the client.
+
+2. Are there known issues or functions that aren't working currently in your attached code? If so, explain.
+No.
+
+3. What problems did you face developing code for this project?
+
+
+
+4. What did you learn by working on this project?
+In terms of theory and concepts, we learn the basis of networking, how connections works on two different endpoints, and the
+differences between TCP and UDP protocols. In terms of applying these concepts to practice, we learn the basis of socket
+programming using the socket module in python to create connections between different endpoints by using TCP protocols, accept
+those connections, and send/receive information between these end points. In addition, we have an insight of how DNS lookups
+work by implementing two servers. One simulating a root dns server, and another server simulating a top-level dns server.
