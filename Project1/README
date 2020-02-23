@@ -1,11 +1,11 @@
-Project is DONE!
-
-1. simply run ts.py, rs.py and then client.py files(use terminal -> python <filename.py>).
-2. results will be written to RESOLVED.txt
-3. we still need to work on the README file.
-
 Name: Idan Levi             NetId: il177
 Name: Luis Figueroa-Gil     NetId: lef72
+
+====================================================================
+Instructions:
+1. simply run ts.py, rs.py and then client.py files(use terminal -> python <filename.py>).
+2. results will be written to RESOLVED.txt
+====================================================================
 
 1. Briefly discuss how you implemented your recursive client functionality.
 The client creates two sockets, one for TS server and the other one for RS server by using TCP connection. After doing the
@@ -21,7 +21,12 @@ appropriate information. If not, then returns HOST NOT FOUND to the client.
 No.
 
 3. What problems did you face developing code for this project?
+At the beginning it was difficult to understand what we should look when there is no match in RS server. So after doing some research
+we understood that the line with the 'NS' flag is the address for the next server but then we asked if there is any possibility that
+the RS server may contain another 'NS' flag so which one should we choose?
 
+Encode -> Decode from recv() and send() we received strings that were unicode type. We had to strip, split and clean those strings
+in order to make lookup in our Hashtable with no added chars.
 
 
 4. What did you learn by working on this project?
