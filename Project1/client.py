@@ -1,7 +1,7 @@
 import threading
 import time
 import random
-
+import sys
 import socket
 
 
@@ -20,11 +20,24 @@ def client_connection():
     except socket.error as err:
         print('ERROR! Socket open error: {}\n'.format(err))
 
-    port = 50111
-    host_addr = socket.gethostbyname(socket.gethostname())
+    if len(sys.argv) < 4:
+        print('============================================================================================== \n')
+        print("[You have missed one of the arguments, please make sure you type in: HostName, RSPort, TSPort] \n")
+        print('============================================================================================== \n')
+        sys.exit()
 
+    # receive data from user - using command line arguments.
+    # 1. host name.
+    # 2. port for RS server.
+    # 3. port for TS server.
+    port_from_command_line_Client_to_RS = int(sys.argv[2])
+    port_from_command_line_Client_to_TS = int(sys.argv[3])
+    host_name_from_command_line = str(sys.argv[1])
+    host_addr = host_name_from_command_line
+    local_IP = socket.gethostbyname(socket.gethostname())
+    print("[C]: This client running on IP address {}".format(local_IP))
     # connect to the server on local machine
-    server_binding = (host_addr, port)
+    server_binding = (host_addr, port_from_command_line_Client_to_RS)
     RS_connection.connect(server_binding)
     connection = False
     # open query_source and start sending them to RS server first if it not found go to TS server.
@@ -50,7 +63,7 @@ def client_connection():
         if server_response[2] == 'NS':
             print('[C]: IP NOT Found TSHostname - NS {}'.format('['+receive_response+']'))
             if not connection:
-                server_binding0 = (server_response[0], 50221)
+                server_binding0 = (server_response[0], port_from_command_line_Client_to_TS)
                 TS_connection.connect(server_binding0)
                 connection = True
             # Move to [TS] with hostname that was given by [RS] server.

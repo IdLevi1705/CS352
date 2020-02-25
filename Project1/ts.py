@@ -1,11 +1,13 @@
 import threading
 import time
 import random
-
+import sys
 import socket
-# tsc - TS connection
+
 from collections import OrderedDict
 
+
+# tsc - TS connection
 
 def TSserver():
     try:
@@ -14,7 +16,9 @@ def TSserver():
     except socket.error as err:
         print('socket open error: {}\n'.format(err))
         exit()
-    ser_bind = ('', 50221)
+
+    port_from_command_line_TS = int(sys.argv[1])
+    ser_bind = ('', port_from_command_line_TS)
     tsc.bind(ser_bind)
     tsc.listen(1)
     host = socket.gethostname()
@@ -45,7 +49,7 @@ def TSserver():
             return_message = str(data_from_client.strip()) + ' - Error:HOST NOT FOUND'
         if data_from_client == "":
             break
-        print('[S]: Message from TS server {}'.format('['+return_message+']'))
+        print('[S]: Message from TS server {}'.format('[' + return_message + ']'))
         csockid.send(return_message.encode('utf-8'))
 
     tsc.close()
@@ -55,4 +59,3 @@ def TSserver():
 thread3 = threading.Thread(name='TSserver', target=TSserver)
 thread3.start()
 time.sleep(random.random() * 5)
-

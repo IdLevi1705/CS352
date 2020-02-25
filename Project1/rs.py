@@ -2,6 +2,7 @@ import threading
 import time
 import random
 import socket
+import sys
 from collections import OrderedDict
 
 
@@ -13,7 +14,8 @@ def RSserver():
         print('socket open error: {}\n'.format(err))
         exit()
 
-    server_binding = ('', 50111)
+    port_from_command_line = int(sys.argv[1])
+    server_binding = ('', port_from_command_line)
     rsc.bind(server_binding)
     rsc.listen(1)
     host = socket.gethostname()
