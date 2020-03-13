@@ -86,7 +86,7 @@ def LSServer():
 
         print("Data from client - >>> ", data_from_client)
 
-        # print("data received from TS1")
+
         # TS2_connection.recv(1024).decode('utf-8')
         # print("data received from TS2")
         # # a = ts1sockid.send(data_from_client.encode('utf-8'))
