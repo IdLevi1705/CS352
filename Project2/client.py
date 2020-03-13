@@ -44,11 +44,9 @@ def client_connection():
         client_LS_connection.send(line.encode('utf-8'))
         s = client_LS_connection.recv(1024).encode('utf-8')
         print(s)
-        # reader, writer, _, = ([client_LS_connection], [], [])
-        # for r in reader:
-        #     if r is client_LS_connection:
-        #         print("I am in reader!")
-        #         client_LS_connection.recv(1024).encode('utf-8')
+        result_file.write(str(s))
+        result_file.write('\n')
+
 
 
     # receive_response = client_LS_connection.recv(1024).decode('utf-8')

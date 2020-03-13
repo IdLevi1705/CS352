@@ -73,7 +73,7 @@ def LSServer():
         print("data sent to TS1")
         TS2_connection.send(data_from_client.encode('utf-8'))
         print("data sent to TS2")
-        reader, _, _ = select.select([TS1_connection, TS2_connection], [], [])
+        reader, _, _ = select.select([TS1_connection, TS2_connection], [], [],)
         for r in reader:
             print("I entered r")
             if r is TS1_connection:
@@ -83,7 +83,6 @@ def LSServer():
             elif r is TS2_connection:
                 bobok = TS2_connection.recv(1024).decode('utf-8')
                 csockid.send(bobok.encode('utf-8'))
-
 
         print("Data from client - >>> ", data_from_client)
 

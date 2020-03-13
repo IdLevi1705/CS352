@@ -36,21 +36,23 @@ def TS1_server():
         if not temp_split[0] in DNS_TSTable:
             DNS_TSTable[temp_split[0]] = line_num
     raw_file.close()
-    return_message = 'HI this is TS1'
-    print(DNS_TSTable)
+    return_msg = ''
+
     while True:
         data_from_client = csockid.recv(1024).decode('utf-8')
         print(data_from_client)
         if data_from_client in DNS_TSTable:
+            raw = open('PROJ2-DNSTS1.txt', 'r')
+            p = DNS_TSTable.get(data_from_client.strip())
+            return_line = raw.readlines()[p].strip()
+            return_msg = return_line
             print("Yes")
+            csockid.send(return_msg.encode('utf-8'))
+            raw.close()
         else:
-            csockid.send(return_message.encode('utf-8'))
             print("NO")
-            # ts1_sock.close()
-            # exit()
             print("something")
-    # change the return here!
-    # exit()
+            continue
 
 
 thread3 = threading.Thread(name='TS1_server', target=TS1_server)
