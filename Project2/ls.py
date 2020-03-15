@@ -65,35 +65,36 @@ def LSServer():
 
     # ts2sockid, addrts2 = TS2_connection.accept()
     print("[S]: Got a connection request from a client at {}".format(addr))
-    msg = "Yup"
+    err_msg = ' - Error:HOST NOT FOUND'
+
     while True:
         data_from_client = csockid.recv(1024).decode('utf-8')
+        if len(data_from_client) == 0:
+            TS1_connection.send("".encode('utf-8'))
+            TS2_connection.send("".encode('utf-8'))
+            break
         print("data received from client")
         TS1_connection.send(data_from_client.encode('utf-8'))
         print("data sent to TS1")
         TS2_connection.send(data_from_client.encode('utf-8'))
         print("data sent to TS2")
-        reader, _, _ = select.select([TS1_connection, TS2_connection], [], [],)
+        reader, _, _ = select.select([TS1_connection, TS2_connection], [], [], float(5))
         for r in reader:
             print("I entered r")
             if r is TS1_connection:
-                bobok = TS1_connection.recv(1024).decode('utf-8')
-                print("This is r -> ", bobok)
-                csockid.send(bobok.encode('utf-8'))
-            elif r is TS2_connection:
-                bobok = TS2_connection.recv(1024).decode('utf-8')
-                csockid.send(bobok.encode('utf-8'))
+                msg_ts1 = TS1_connection.recv(1024).decode('utf-8')
+                print("Data received from TS1 -> ", msg_ts1)
+                csockid.send(msg_ts1.encode('utf-8'))
+            if r is TS2_connection:
+                msg_ts2 = TS2_connection.recv(1024).decode('utf-8')
+                print("Data received from TS2 -> ", msg_ts2)
+                csockid.send(msg_ts2.encode('utf-8'))
+        if not (reader or _ or _):
+            print("Not in TS1 and not in TS2")
+            print(data_from_client + err_msg)
+            csockid.send((data_from_client + err_msg).encode('utf-8'))
 
-        print("Data from client - >>> ", data_from_client)
 
-
-        # TS2_connection.recv(1024).decode('utf-8')
-        # print("data received from TS2")
-        # # a = ts1sockid.send(data_from_client.encode('utf-8'))
-
-        # f.close()
-        # LS_Server.close()
-        # exit()
 
 
 thread2 = threading.Thread(name='LSServer', target=LSServer)

@@ -42,39 +42,13 @@ def client_connection():
             line = line[:-1]
         # address is ready to be sent to [RS] server first.
         client_LS_connection.send(line.encode('utf-8'))
-        s = client_LS_connection.recv(1024).encode('utf-8')
+        print("Line from HNS file -> ", line)
+        s = client_LS_connection.recv(3024).encode('utf-8')
         print(s)
         result_file.write(str(s))
         result_file.write('\n')
 
-
-
-    # receive_response = client_LS_connection.recv(1024).decode('utf-8')
-    # server_response = receive_response.split()
-    # # check the answer that [RS] server returns.
-    # # 1. If answer contains flag 'A' -> we have a mathc and we can go ahead and write it into RESOLVED.txt file.
-    # # 2. If no match, move to the next server which is given by the [RS]
-    # # server -> address for next server involves 'NS' flag.
-    # if server_response[2] == 'A':
-    #     print('[C]: IP Found for address - {}'.format('[' + receive_response + ']'))
-    #     result_file.write(str(receive_response))
-    #     result_file.write('\n')
-    # # Else if an error occurred -> timeout - write it as an 'not found'
-    # if server_response[2] == 'NS':
-    #     print('[C]: IP NOT Found TSHostname - NS {}'.format('[' + receive_response + ']'))
-    #     if not connection:
-    #         server_binding0 = (server_response[0], ls_listen_port)
-    #         TS_connection.connect(server_binding0)
-    #         connection = True
-    #     # Move to [TS] with hostname that was given by [RS] server.
-    #     TS_connection.send(line.encode('utf-8'))
-    #     ts_response = TS_connection.recv(1024).decode('utf-8')
-    #     # Answer from TS will be written into RESOLVED.txt
-    #     result_file.write(ts_response)
-    #     result_file.write('\n')
-
-    # client_LS_connection.close()
-    # exit()
+    client_LS_connection.send("".encode('utf-8'))
 
 
 thread1 = threading.Thread(name='client_connection', target=client_connection)

@@ -41,20 +41,16 @@ def TS2_server():
 
     while True:
         data_from_client = csockid.recv(1024).decode('utf-8')
-        print(data_from_client)
+        if len(data_from_client) == 0:
+            break
         if data_from_client.strip() in DNS_TSTable:
             p = DNS_TSTable.get(data_from_client.strip())
-            print(p)
             raw = open('PROJ2-DNSTS2.txt', 'r')
             return_line = raw.readlines()[p].strip()
-            print(return_line)
             return_msg = return_line
-            print("Yes")
             csockid.send(return_msg.encode('utf-8'))
             raw.close()
-        else:
-            print("NO")
-            exit()
+
 
 
 thread4 = threading.Thread(name='TS2_server', target=TS2_server)
