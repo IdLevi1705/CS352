@@ -35,7 +35,6 @@ def TS2_server():
         if not temp_split[0] in DNS_TSTable:
             DNS_TSTable[temp_split[0]] = line_num
     raw_file.close()
-    print(DNS_TSTable)
     return_msg = ''
 
     while True:
