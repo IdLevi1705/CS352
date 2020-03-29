@@ -24,6 +24,8 @@ No.
 
 3. What problems did you face developing code for this project?
 
+The main issue was to find the best why/ reliable how to send and receive from two servers simultaneously. At the beginning we used two threads that are running at the same time one for each TS server. Since it was hard to control which thread will receive first we decided to explore the system call Select.select() which allows to send and return at the same time. Next, the second challange was to understand this call since we never used it before. Select call works in perfect and easy way for this assignment, we just had to run a for loop for read and write.
+
 4. What did you learn by working on this project?
 
 By working on this project, we learned how important load-balancing servers are in general. When it comes to web servers with a huge amount of traffic, load-balancing servers can distribute properly the load by knowing certain information, such as the DNS configuration, ensuring performance, redundancy, and flexibility. In addition, we learned how to simulate a load-balancing server that receives queries from a client and forwards them to other servers to check whether the queries requested are on the DNS table of each TS server.
