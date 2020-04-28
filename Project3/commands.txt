@@ -5,7 +5,7 @@ h3 ip addr add 10.0.0.4 dev h3-eth0
 h4 ip addr add 192.168.0.4 dev h4-eth0
 r1 ip addr add 10.0.0.1 dev r1-eth1
 r1 ip addr add 192.168.0.1 dev r1-eth2
-r1 ip addr add 10.0.03 dev r1-eth3
+r1 ip addr add 10.0.0.3 dev r1-eth3
 r1 ip addr add 192.168.0.3 dev r1-eth4
 ===========Q2======================
 h1 ip route add default via 10.0.0.2
