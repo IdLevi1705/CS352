@@ -1,2 +1,1 @@
-# CS352
-Internet Technology
+# Internet Technology
